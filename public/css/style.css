@@ -40,7 +40,8 @@ body {
 .screen { display: flex; flex: 1; flex-direction: column; }
 .topbar { align-items: flex-start; display: flex; justify-content: space-between; }
 
-.brand { color: var(--white); display: inline-flex; flex-wrap: wrap; line-height: 1; text-decoration: none; width: 150px; }
+.brand { display: inline-flex; line-height: 1; text-decoration: none; width: clamp(150px, 18cqw, 240px); }
+.brand img { display: block; height: auto; width: 100%; }
 .brand-name { font-family: "Outfit", sans-serif; font-size: clamp(32px, 6cqw, 66px); font-weight: 800; letter-spacing: 0; }
 .brand sup { font-size: 11px; font-weight: 700; margin: 4px 0 0 3px; }
 .brand-rule { background: var(--yellow); height: 3px; margin: 7px 0 6px; width: 100%; }
