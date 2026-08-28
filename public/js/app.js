@@ -13,15 +13,16 @@ let selectedOption = null;
 function shuffle(items) { return [...items].sort(() => Math.random() - 0.5); }
 
 function registerQuizCompletion() {
-  const event = JSON.stringify({
-    event: "quiz_concluido",
-    timestamp: Date.now()
-  });
+  const counterUrl = new URL(usageCounterEndpoint);
+  counterUrl.searchParams.set("event", "quiz_concluido");
+  counterUrl.searchParams.set("timestamp", Date.now().toString());
 
-  navigator.sendBeacon(
-    usageCounterEndpoint,
-    new Blob([event], { type: "text/plain" })
-  );
+  const tracker = document.createElement("iframe");
+  tracker.hidden = true;
+  tracker.setAttribute("aria-hidden", "true");
+  tracker.src = counterUrl.toString();
+  document.body.append(tracker);
+  window.setTimeout(() => tracker.remove(), 10000);
 }
 
 function startRound() {
