@@ -48,6 +48,8 @@ body {
 .brand-tagline { font-size: 8px; font-weight: 700; letter-spacing: .65px; text-transform: uppercase; }
 .edition { border: 1px solid rgba(255,255,255,.48); font-size: 9px; letter-spacing: 1.15px; padding: 8px 9px; }
 
+@media (max-width: 767px) { .brand { width: 108px; } }
+
 .home-content { margin-top: clamp(55px, 11vh, 205px); }
 .eyebrow { align-items: center; display: flex; font-size: clamp(9px, 1.4cqw, 15px); font-weight: 700; gap: 9px; letter-spacing: 1.25px; }
 .eyebrow span { background: var(--yellow); border-radius: 50%; height: 8px; width: 8px; }
