@@ -12,6 +12,18 @@ let selectedOption = null;
 
 function shuffle(items) { return [...items].sort(() => Math.random() - 0.5); }
 
+function registerQuizCompletion() {
+  const event = JSON.stringify({
+    event: "quiz_concluido",
+    timestamp: Date.now()
+  });
+
+  navigator.sendBeacon(
+    usageCounterEndpoint,
+    new Blob([event], { type: "text/plain" })
+  );
+}
+
 function startRound() {
   round = shuffle(questions).map((question) => ({ ...question, options: shuffle(question.options) }));
   currentIndex = 0;
@@ -48,7 +60,7 @@ function renderFeedback() {
 }
 
 function renderFinal() {
-  fetch(usageCounterEndpoint, { mode: "no-cors", cache: "no-store" }).catch(() => {});
+  registerQuizCompletion();
   screen.innerHTML = `<section class="final-screen" aria-labelledby="final-title"><div class="final-sparkles" aria-hidden="true">✦ <span>+</span> ✦</div><div class="eyebrow"><span></span> QUIZ CONCLUÍDO</div><h1 id="final-title">Cuidar dos seus<br>ossos é cuidar<br>da sua <em>história.</em></h1><p class="intro">Faça escolhas que acompanhem todos os seus movimentos.</p></section><footer class="bottom-area"><button class="start-button" type="button" id="finish-quiz"><span>CONCLUIR</span><span class="arrow" aria-hidden="true">→</span></button><p class="disclaimer">Oscal® auxilia na manutenção de ossos e dentes e na absorção do cálcio.</p></footer>`;
   document.querySelector("#finish-quiz").addEventListener("click", renderHome);
 }
